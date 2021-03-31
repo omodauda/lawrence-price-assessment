@@ -1,7 +1,7 @@
 /* 
   @jest-environment node
 */
-import server from '../../../src';
+import server from '../../../src/app';
 import { connectDb, disconnectDb } from '../../utils/connection';
 import supertest from 'supertest';
 
