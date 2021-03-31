@@ -20,7 +20,7 @@ describe('The login user route', () => {
 
   it('should login a registered user', async() => {
     const user = {
-      email: 'testlogin@yahoo.com',
+      email: 'testlogin@gmail.com',
       password: 'johndoe'
     };
     
