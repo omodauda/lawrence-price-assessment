@@ -1,6 +1,17 @@
 import { async } from 'regenerator-runtime';
-import { User, Account, sequelize } from '../database/models';
+import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
+import {
+  User, Account, Transaction, sequelize,
+} from '../database/models';
 import { errorMsg, successMsg } from '../utils/response';
+
+const signToken = (user) => jwt.sign({
+  iss: 'omodauda',
+  sub: user.id,
+  iat: new Date().getTime(),
+  expiresIn: '1d',
+}, process.env.JWT_SECRET);
 
 export default class UserController {
   static async registerUser(req, res) {
@@ -25,6 +36,41 @@ export default class UserController {
         return successMsg(res, 200, 'user registered successfully');
       });
       return result;
+    } catch (error) {
+      return errorMsg(res, 500, 'internal server error');
+    }
+  }
+
+  static async loginUser(req, res) {
+    try {
+      const { email, password } = req.body;
+      const user = await User.findOne({ where: { email } });
+      if (!user) {
+        return errorMsg(res, 400, `user with email ${email} not registered`);
+      }
+
+      const isValidPassword = await bcrypt.compare(password, user.password);
+      if (!isValidPassword) {
+        return errorMsg(res, 400, 'Invalid password');
+      }
+
+      const account = await Account.findOne({ where: { user_id: user.id }, include: Transaction });
+
+      const { id, email: user_email, createdAt } = user;
+      const { balance, updatedAt: balance_updateAt, Transactions } = account;
+
+      const token = signToken(user);
+
+      const data = {
+        user_id: id,
+        user_email,
+        createdAt,
+        balance,
+        balance_updateAt,
+        Transactions,
+      };
+
+      return successMsg(res, 200, 'login successful', { token, ...data });
     } catch (error) {
       return errorMsg(res, 500, 'internal server error');
     }
