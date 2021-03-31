@@ -24,8 +24,9 @@ describe('The login user route', () => {
       password: 'johndoe'
     };
     
-    await app().post('/api/v1/users/signup').send(user);
-    const response = await app().post('/api/v1/users/login').send(user);
+    await app().post('/api/v1/users/signup').send({ email: user.email, password: user.password});
+    const response = await app().post('/api/v1/users/login').send({ email: user.email, password: user.password});
+
 
     expect(response.status).toBe(200);
     expect(response.body).toHaveProperty('status', 'success');

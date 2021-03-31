@@ -22,7 +22,7 @@ describe('The register user route', () => {
       email: 'johndoe@yahoo.com',
       password: 'johndoe'
     };
-    const response = await app().post('/api/v1/users/signup').send(user);
+    const response = await app().post('/api/v1/users/signup').send({ email: user.email, password: user.password});
 
     expect(response.status).toBe(200);
     expect(response.body).toHaveProperty('status', 'success');
@@ -35,7 +35,7 @@ describe('The register user route', () => {
       password: 'johndoe'
     };
 
-    const response = await app().post('/api/v1/users/signup').send(user);
+    const response = await app().post('/api/v1/users/signup').send({ email: user.email, password: user.password});
 
     expect(response.status).toBe(400);
     expect(response.body).toHaveProperty('status', 'fail');
