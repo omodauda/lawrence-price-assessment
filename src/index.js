@@ -9,6 +9,8 @@ const app = express();
 const { PORT } = process.env;
 const ENV = process.env.NODE_ENV;
 
+app.use(express.json());
+
 app.listen(PORT, async () => {
   if (ENV === 'development') {
     console.log(`app is running on port ${PORT}`);
