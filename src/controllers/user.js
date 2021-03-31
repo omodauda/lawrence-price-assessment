@@ -57,7 +57,7 @@ export default class UserController {
       const account = await Account.findOne({ where: { user_id: user.id }, include: Transaction });
 
       const { id, email: user_email, createdAt } = user;
-      const { balance, updatedAt: balance_updateAt, Transactions } = account;
+      const { balance, updatedAt: balance_updatedAt, Transactions } = account;
 
       const token = signToken(user);
 
@@ -66,7 +66,7 @@ export default class UserController {
         user_email,
         createdAt,
         balance,
-        balance_updateAt,
+        balance_updatedAt,
         Transactions,
       };
 
