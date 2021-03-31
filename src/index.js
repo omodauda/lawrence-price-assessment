@@ -2,6 +2,7 @@ import dotenv from 'dotenv';
 import express from 'express';
 import regeneratorRuntime from 'regenerator-runtime';
 import { sequelize } from './database/models';
+import router from './routes';
 
 dotenv.config();
 
@@ -10,6 +11,7 @@ const { PORT } = process.env;
 const ENV = process.env.NODE_ENV;
 
 app.use(express.json());
+app.use('/api/v1/', router);
 
 app.listen(PORT, async () => {
   if (ENV === 'development') {
