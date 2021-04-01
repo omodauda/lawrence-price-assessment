@@ -2,7 +2,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { Account, Transaction, sequelize } from '../database/models';
 import { errorMsg, successMsg } from '../utils/response';
 
-export default class AccountController {
+export default class TransactionController {
   static async addMoney(req, res) {
     try {
       const { amount } = req.body;

@@ -1,12 +1,12 @@
 import { Router } from 'express';
-import AccountController from '../controllers/account';
+import TransactionController from '../controllers/transaction';
 import authenticate from '../middlewares/auth';
 import { validateBody, schemas } from '../validators';
 
 const router = new Router();
 
 router
-  .route('/account/credit')
-  .post(validateBody(schemas.addMoney), authenticate, AccountController.addMoney);
+  .route('/account/add_money')
+  .post(validateBody(schemas.addMoney), authenticate, TransactionController.addMoney);
 
 export default router;
