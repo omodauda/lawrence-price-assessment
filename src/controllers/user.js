@@ -1,12 +1,17 @@
 import { async } from 'regenerator-runtime';
 import bcrypt from 'bcryptjs';
-import jwt from 'jsonwebtoken';
+// import jwt from 'jsonwebtoken';
+import redis from 'redis';
+import JWTR from 'jwt-redis';
 import {
   User, Account, Transaction, sequelize,
 } from '../database/models';
 import { errorMsg, successMsg } from '../utils/response';
 
-const signToken = (user) => jwt.sign({
+const redisClient = redis.createClient();
+const jwtr = new JWTR(redisClient);
+
+const signToken = async (user) => jwtr.sign({
   iss: 'omodauda',
   sub: user.id,
   iat: new Date().getTime(),
@@ -59,7 +64,7 @@ export default class UserController {
       const { id, email: user_email, createdAt } = user;
       const { balance, updatedAt: balance_updatedAt, Transactions } = account;
 
-      const token = signToken(user);
+      const token = await signToken(user);
 
       const data = {
         user_id: id,
@@ -71,6 +76,16 @@ export default class UserController {
       };
 
       return successMsg(res, 200, 'login successful', { token, ...data });
+    } catch (error) {
+      return errorMsg(res, 500, 'internal server error');
+    }
+  }
+
+  static async logout(req, res) {
+    const { jti } = req.user;
+    try {
+      const response = await jwtr.destroy(jti, process.env.JWT_SECRET);
+      return successMsg(res, 200, 'User successfully logged out');
     } catch (error) {
       return errorMsg(res, 500, 'internal server error');
     }
