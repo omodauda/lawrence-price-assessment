@@ -39,7 +39,6 @@ describe('The login user route', () => {
     expect(response.body.data).toHaveProperty('balance');
     expect(response.body.data).toHaveProperty('balance_updatedAt');
     expect(response.body.data).toHaveProperty('Transactions');
-    // expect(response.body.data.Transaction).toEqual(expect.any(Array))
   });
 
   it('should return a 400 for invalid user', async() => {

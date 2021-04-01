@@ -1,6 +1,5 @@
 import { async } from 'regenerator-runtime';
 import bcrypt from 'bcryptjs';
-// import jwt from 'jsonwebtoken';
 import redis from 'redis';
 import JWTR from 'jwt-redis';
 import {

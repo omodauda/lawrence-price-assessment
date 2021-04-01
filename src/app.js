@@ -6,7 +6,6 @@ import router from './routes';
 dotenv.config();
 
 const app = express();
-const { PORT } = process.env;
 const ENV = process.env.NODE_ENV;
 
 app.use(express.json());
