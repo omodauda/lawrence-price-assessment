@@ -52,6 +52,19 @@ describe('The login user route', () => {
     expect(response.status).toBe(400);
     expect(response.body).toHaveProperty('status', 'fail');
     expect(response.body).toHaveProperty('error', `user with email ${user.email} not registered`);
+  });
 
+  it('should return a 400 for invalid password', async() => {
+    const user = {
+      email: 'testlogin1@gmail.com',
+      password: 'johndoe'
+    };
+    
+    await app().post('/api/v1/users/signup').send({ email: user.email, password: user.password});
+    const response = await app().post('/api/v1/users/login').send({ email: user.email, password: 'invalid'});
+
+    expect(response.status).toBe(400);
+    expect(response.body).toHaveProperty('status', 'fail');
+    expect(response.body).toHaveProperty('error', 'Invalid password');
   })
 })
