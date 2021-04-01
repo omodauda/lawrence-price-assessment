@@ -4,9 +4,14 @@
 import { async } from 'regenerator-runtime';
 import { User } from '../../../src/database/models';
 import { connectDb, disconnectDb } from '../../utils/connection';
-import jwt from 'jsonwebtoken';
+// import jwt from 'jsonwebtoken';
 import authMiddleware from '../../../src/middlewares/auth';
 import Response from '../../utils/response';
+import JWTR from 'jwt-redis';
+import redis from 'redis';
+
+const redisClient = redis.createClient();
+const jwtr = new JWTR(redisClient);
 
 describe('The jwt auth middleware', () => {
 
@@ -53,7 +58,7 @@ describe('The jwt auth middleware', () => {
 
   it('should call next function', async() => {
 
-    const token = jwt.sign({
+    const token = await jwtr.sign({
       iss: 'omodauda',
       sub: newUser.dataValues.id,
       iat: new Date().getTime(),
