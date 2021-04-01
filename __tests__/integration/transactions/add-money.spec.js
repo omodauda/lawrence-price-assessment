@@ -27,7 +27,6 @@ describe('The add money transaction', () => {
     await app().post('/api/v1/users/signup').send({ email: user.email, password: user.password});
     const loggedUser = await app().post('/api/v1/users/login').send({ email: user.email, password: user.password});
     const token = loggedUser.body.data.token;
-    const authorization = `Bearer ${token}`;
 
     const headers = {
       authorization: `Bearer ${token}`
