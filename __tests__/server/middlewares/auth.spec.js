@@ -4,7 +4,6 @@
 import { async } from 'regenerator-runtime';
 import { User } from '../../../src/database/models';
 import { connectDb, disconnectDb } from '../../utils/connection';
-// import jwt from 'jsonwebtoken';
 import authMiddleware from '../../../src/middlewares/auth';
 import Response from '../../utils/response';
 import JWTR from 'jwt-redis';
