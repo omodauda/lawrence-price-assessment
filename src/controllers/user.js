@@ -8,7 +8,8 @@ import {
 } from '../database/models';
 import { errorMsg, successMsg } from '../utils/response';
 
-const redisClient = redis.createClient();
+const REDIS_PORT = process.env.REDISCLOUD_URL || 6379;
+const redisClient = redis.createClient(REDIS_PORT);
 const jwtr = new JWTR(redisClient);
 
 const signToken = async (user) => jwtr.sign({
