@@ -61,6 +61,15 @@ const schemas = {
         'string.min': 'password should have a minimum length of 5',
       }),
   }),
+
+  addMoney: Joi.object().keys({
+    amount: Joi.number()
+      .required()
+      .messages({
+        'number.empty': 'amount cannot be empty',
+        'any.required': 'amount is required',
+      }),
+  }),
 };
 
 export {
