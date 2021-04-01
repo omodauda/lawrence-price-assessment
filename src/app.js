@@ -11,6 +11,10 @@ const ENV = process.env.NODE_ENV;
 app.use(express.json());
 app.use('/api/v1/', router);
 
+app.get('/docs', (req, res) => {
+  res.redirect('https://documenter.getpostman.com/view/11291043/TzCP6mtj');
+});
+
 async function init_db() {
   if (ENV === 'development') {
     try {
