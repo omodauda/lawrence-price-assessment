@@ -84,6 +84,7 @@ const schemas = {
         'number.empty': 'receiver_account_id cannot be empty',
         'any.required': 'receiver_account_id is required',
       }),
+    narration: Joi.string(),
   }),
 };
 
