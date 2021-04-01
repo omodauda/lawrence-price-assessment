@@ -9,4 +9,8 @@ router
   .route('/account/add_money')
   .post(validateBody(schemas.addMoney), authenticate, TransactionController.addMoney);
 
+router
+  .route('/account/send_money')
+  .post(validateBody(schemas.sendMoney), authenticate, TransactionController.sendMoney);
+
 export default router;

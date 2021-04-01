@@ -70,6 +70,21 @@ const schemas = {
         'any.required': 'amount is required',
       }),
   }),
+
+  sendMoney: Joi.object().keys({
+    amount: Joi.number()
+      .required()
+      .messages({
+        'number.empty': 'amount cannot be empty',
+        'any.required': 'amount is required',
+      }),
+    receiver_account_id: Joi.number()
+      .required()
+      .messages({
+        'number.empty': 'receiver_account_id cannot be empty',
+        'any.required': 'receiver_account_id is required',
+      }),
+  }),
 };
 
 export {
