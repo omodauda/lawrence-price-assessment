@@ -4,7 +4,7 @@
   "description": "Backend developer assessment",
   "main": "index.js",
   "scripts": {
-    "test": "env NODE_ENV=test jest",
+    "test": "env NODE_ENV=test jest --force-exit --detectOpenHandles",
     "lint": "eslint src/ --fix",
     "build": "babel src -d lib",
     "build:watch": "babel src -d lib --watch",
