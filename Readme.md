@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/omodauda/lawrence-price-assessment.svg?token=M9un7ja3pnsag2jxkeQp&branch=main)](https://travis-ci.com/omodauda/lawrence-price-assessment)
+[![Build Status](https://travis-ci.com/omodauda/lawrence-price-assessment.svg?token=M9un7ja3pnsag2jxkeQp&branch=master)](https://travis-ci.com/omodauda/lawrence-price-assessment)
 
 - API LIVE URL: `https://lawrence-price-assessment.herokuapp.com`
 - API DOC: `https://lawrence-price-assessment.herokuapp.com/api/v1/docs`
