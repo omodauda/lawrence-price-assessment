@@ -42,7 +42,7 @@ export default class TransactionController {
 
   static async sendMoney(req, res) {
     try {
-      const { amount, receiver_account_id } = req.body;
+      const { amount, receiver_account_id, narration } = req.body;
       const account = await Account.findOne({ where: { user_id: req.user.id } });
       const receipient_account = await Account.findOne({ where: { id: receiver_account_id } });
 
@@ -71,6 +71,7 @@ export default class TransactionController {
           amount,
           balance_before: Number(account.balance),
           balance_after: Number(account.balance) - Number(amount),
+          narration,
         }, {
           transaction: t,
         });
@@ -87,6 +88,7 @@ export default class TransactionController {
           amount,
           balance_before: Number(receipient_account.balance),
           balance_after: Number(receipient_account.balance) + Number(amount),
+          narration,
         }, {
           transaction: t,
         });
